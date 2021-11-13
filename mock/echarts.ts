@@ -1,12 +1,23 @@
-/*
- * @Author: wangyi
- * @Description:
- * @Date: 2021-11-11 18:21:45
- * @LastEditTime: 2021-11-11 18:25:40
- */
+import { MockMethod } from "vite-plugin-mock";
 
-import Mock from 'mockjs';
+// http://mockjs.com/examples.html#Object
+const echartsList = () => {
+  const result = [];
+  for (let index = 0; index < 200; index++) {
+    result.push(["@date", Math.floor(Math.random() * 300)]);
+  }
+  return result;
+};
 
-export default {
-  "GET /api/getEchartsInfo":
-}
+export default [
+  {
+    url: "/getEchartsInfo",
+    method: "get",
+    response: () => {
+      return {
+        code: 0,
+        info: echartsList()
+      };
+    }
+  }
+] as MockMethod[];

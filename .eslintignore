@@ -2,3 +2,7 @@ public
 dist
 *.d.ts
 package.json
+
+.eslintrc.js
+
+.husky

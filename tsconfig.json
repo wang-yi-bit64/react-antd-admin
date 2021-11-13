@@ -3,35 +3,36 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "importHelpers": true,
+    "strict": false,
     "jsx": "react-jsx",
+    "importHelpers": true,
+    "experimentalDecorators": true,
+    "strictFunctionTypes": false,
+    "skipLibCheck": true,
     "esModuleInterop": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
-    "baseUrl": "./",
-    "strict": true,
+    "baseUrl": ".",
+    "allowJs": false,
+    "resolveJsonModule": true,
+    "lib": ["dom", "esnext", "DOM.Iterable"],
+    "incremental": true,
     "paths": {
-      "@/*": ["src/*"],
-      "@@/*": ["src/.umi/*"]
+      "/@/*": ["src/*"],
+      "@build/*": ["build/*"],
+      "/#/*": ["types/*"]
     },
-    "allowSyntheticDefaultImports": true
+    "types": ["node", "vite/client"],
+    "typeRoots": ["./node_modules/@types/", "./types"]
   },
   "include": [
-    "mock/**/*",
-    "src/**/*",
-    "config/**/*",
-    ".umirc.ts",
-    "typings.d.ts"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "types/*.d.ts",
+    "mock/*.ts",
+    "vite.config.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "lib",
-    "es",
-    "dist",
-    "typings",
-    "**/__test__",
-    "test",
-    "docs",
-    "tests"
-  ]
+  "exclude": ["node_modules", "dist", "**/*.js"]
 }

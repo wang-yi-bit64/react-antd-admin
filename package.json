@@ -1,50 +1,91 @@
 {
   "private": true,
   "scripts": {
-    "start": "umi dev",
-    "build": "umi build",
-    "postinstall": "umi generate tmp",
-    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
-    "test": "umi-test",
-    "test:coverage": "umi-test --coverage"
+    "dev": "cross-env --max_old_space_size=4096 vite",
+    "serve": "pnpm dev",
+    "build": "rimraf dist && cross-env vite build",
+    "preview": "vite preview",
+    "preview:build": "pnpm build && vite preview",
+    "clean:cache": "rm -rf node_modules && rm -rf .eslintcache && pnpm install",
+    "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{ts,tsx}\" --fix",
+    "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,css,scss,postcss,less}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
+    "lint:pretty": "pretty-quick --staged",
+    "lint": "pnpm lint:eslint && pnpm lint:prettier && pnpm lint:stylelint && pnpm lint:pretty",
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
+  "engines": {
+    "node": ">= 16",
+    "pnpm": ">= 6"
   },
-  "lint-staged": {
-    "*.{js,jsx,less,md,json}": [
-      "prettier --write"
-    ],
-    "*.ts?(x)": [
-      "prettier --parser=typescript --write"
-    ]
-  },
+  "browserslist": [
+    "> 1%",
+    "not ie 11",
+    "not op_mini all"
+  ],
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@ant-design/pro-layout": "^6.5.0",
+    "animate.css": "^4.1.1",
     "antd": "^4.16.13",
+    "axios": "^0.24.0",
+    "classnames": "^2.3.1",
+    "dayjs": "^1.10.7",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
+    "path": "^0.12.7",
+    "path-to-regexp": "^6.2.0",
     "react": "17.x",
     "react-dom": "17.x",
-    "umi": "^3.5.20"
+    "react-router": "^6.0.2",
+    "react-router-dom": "^6.0.2",
+    "xe-ajax": "^4.0.5",
+    "xgplayer": "^2.31.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
     "@types/node": "^16.11.7",
+    "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.3.2",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
-    "@umijs/plugin-sass": "^1.1.1",
-    "@umijs/preset-react": "1.x",
-    "@umijs/test": "^3.5.20",
-    "@umijs/types": "^3.5.20",
+    "@vitejs/plugin-react": "^1.0.8",
+    "@vitejs/plugin-react-refresh": "^1.3.6",
+    "@zougt/vite-plugin-theme-preprocessor": "^1.3.12",
+    "autoprefixer": "^10.4.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "chalk": "^4.1.2",
     "cross-env": "^7.0.3",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^7.0.4",
     "lint-staged": "^11.2.6",
+    "postcss": "^8.3.11",
+    "postcss-import": "^14.0.2",
     "prettier": "^2.2.0",
-    "typescript": "^4.1.2",
+    "pretty-quick": "^3.1.1",
+    "rimraf": "^3.0.2",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.3.0",
+    "stylelint": "^14.0.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^23.0.0",
+    "stylelint-order": "^5.0.0",
+    "typescript": "^4.4.4",
+    "vite": "^2.6.14",
+    "vite-plugin-mock": "^2.9.6",
+    "vite-plugin-style-import": "^1.3.0",
+    "vite-svg-loader": "^3.1.0",
     "yorkie": "^2.0.0"
   }
 }

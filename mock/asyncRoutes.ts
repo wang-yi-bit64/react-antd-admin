@@ -1,9 +1,7 @@
-/*
- * @Author: wangyi
- * @Description:
- * @Date: 2021-11-11 18:06:12
- * @LastEditTime: 2021-11-11 18:20:15
- */
+// 根据角色动态生成路由
+import { MockMethod } from "vite-plugin-mock";
+
+// http://mockjs.com/examples.html#Object
 const systemRouter = {
   path: "/system",
   name: "system",
@@ -64,25 +62,29 @@ const permissionRouter = {
     }
   ]
 };
+
+// 添加不同按钮权限到/permission/button页面中
 function setDifAuthority(authority, routes) {
   routes.children[1].meta.authority = [authority];
   return routes;
 }
 
-
-export default {
-  'GET /api/getAsyncRoutes':(req, res) => {
-    const {name} = req.body;
-    if(name === 'admin'){
-      res.status(200).send({
-        code: 0,
-        info: [systemRouter, setDifAuthority("v-admin", permissionRouter)]
-      });
-    } else {
-      res.status(200).send({
-        code: 0,
-        info: [systemRouter, setDifAuthority("v-test", permissionRouter)]
-      });
+export default [
+  {
+    url: "/getAsyncRoutes",
+    method: "get",
+    response: ({ query }) => {
+      if (query.name === "admin") {
+        return {
+          code: 0,
+          info: [systemRouter, setDifAuthority("v-admin", permissionRouter)]
+        };
+      } else {
+        return {
+          code: 0,
+          info: [setDifAuthority("v-test", permissionRouter)]
+        };
+      }
     }
   }
-}
+] as MockMethod[];
